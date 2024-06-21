@@ -5,7 +5,7 @@ import { Users } from "../components/Users";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const Dashboard = () => {
+const Dashboard = ({ userName, setAuthenticated }) => {
   const [balance, setBalance] = useState(0);
 
   const fetchBalance = async () => {
@@ -30,7 +30,7 @@ const Dashboard = () => {
   }, []);
   return (
     <div className="flex flex-col space-y-8 bg-gray-100 min-h-screen">
-      <Appbar />
+      <Appbar userName={userName} setAuthenticated={setAuthenticated} />
       <div className="w-full p-10 space-y-8">
         <Balance value={balance} />
         <Users />

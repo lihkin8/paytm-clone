@@ -7,15 +7,18 @@ import { SubHeading } from "../components/SubHeading";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-export const Signup = () => {
+export const Signup = ({ setAuthenticated }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
+    setLoading(true);
     const userData = {
       firstName,
       lastName,
@@ -32,19 +35,28 @@ export const Signup = () => {
 
       // Store the token in localStorage
       localStorage.setItem("authToken", token);
+      localStorage.setItem("userName", `${firstName} ${lastName}`);
 
       // Optionally, redirect the user to another page
+      setAuthenticated(true);
       navigate("/dashboard");
     } catch (err) {
       console.error("Error signing up:", err);
       setError("Failed to sign up. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="bg-slate-300 h-screen flex justify-center">
-      <div className="flex flex-col justify-center">
-        <div className="rounded-lg bg-white w-80 text-center p-2 h-max px-4">
+    <div className="bg-slate-300 h-screen flex justify-center items-center">
+      <div className="flex flex-col justify-center items-center">
+        <div className="rounded-lg bg-white w-80 text-center p-2 h-max px-4 relative">
+          {loading && (
+            <div className="absolute inset-0 bg-white bg-opacity-75 flex items-center justify-center">
+              <div className="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12"></div>
+            </div>
+          )}
           <Heading label={"Sign up"} />
           <SubHeading label={"Enter your information to create an account"} />
           {error && <p className="text-red-500">{error}</p>}

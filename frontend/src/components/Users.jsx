@@ -7,11 +7,13 @@ export const Users = () => {
   const [users, setUsers] = useState([]);
   const [filter, setFilter] = useState("");
 
+  const REACT_APP_URI = import.meta.env.VITE_REACT_APP_URI;
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3002/api/v1/user/bulk?filter=${filter}`
+          `${REACT_APP_URI}/api/v1/user/bulk?filter=${filter}`
         );
         setUsers(response.data.user);
       } catch (error) {

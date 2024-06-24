@@ -12,6 +12,8 @@ const EditProfile = () => {
 
   const navigate = useNavigate();
 
+  const REACT_APP_URI = import.meta.env.VITE_REACT_APP_URI;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -25,7 +27,7 @@ const EditProfile = () => {
 
     try {
       const response = await axios.put(
-        "http://localhost:3002/api/v1/user/",
+        `${REACT_APP_URI}/api/v1/user/`,
         updateData,
         {
           headers: {

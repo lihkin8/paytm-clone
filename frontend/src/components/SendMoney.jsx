@@ -8,10 +8,12 @@ export const SendMoney = () => {
   const name = searchParams.get("name");
   const [amount, setAmount] = useState("");
 
+  const REACT_APP_URI = import.meta.env.VITE_REACT_APP_URI;
+
   const handleTransfer = () => {
     axios
       .post(
-        "http://localhost:3002/api/v1/account/transfer",
+        `${REACT_APP_URI}/api/v1/account/transfer`,
         {
           to: id,
           amount: amount,

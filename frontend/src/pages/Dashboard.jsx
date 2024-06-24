@@ -8,10 +8,12 @@ import axios from "axios";
 const Dashboard = ({ userName, setAuthenticated }) => {
   const [balance, setBalance] = useState(0);
 
+  const REACT_APP_URI = import.meta.env.VITE_REACT_APP_URI;
+
   const fetchBalance = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3002/api/v1/account/balance",
+        `${REACT_APP_URI}/api/v1/account/balance`,
         {
           headers: {
             authorization: `Bearer ${localStorage.getItem("authToken")}`,

@@ -15,16 +15,15 @@ export const Signin = ({ setUserName, setAuthenticated }) => {
 
   const navigate = useNavigate();
 
+  const REACT_APP_URI = import.meta.env.VITE_REACT_APP_URI;
+
   const handleSubmit = async () => {
     setLoading(true);
     try {
-      const response = await axios.post(
-        "http://localhost:3002/api/v1/user/signin",
-        {
-          email,
-          password,
-        }
-      );
+      const response = await axios.post(`${REACT_APP_URI}/api/v1/user/signin`, {
+        email,
+        password,
+      });
       const token = response.data.token;
 
       // Store the token in localStorage
@@ -32,7 +31,7 @@ export const Signin = ({ setUserName, setAuthenticated }) => {
 
       // Fetch the user's profile details
       const profileResponse = await axios.get(
-        "http://localhost:3002/api/v1/user/profile",
+        `${REACT_APP_URI}/api/v1/user/profile`,
         {
           headers: {
             Authorization: "Bearer " + token,

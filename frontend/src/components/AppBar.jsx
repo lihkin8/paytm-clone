@@ -27,7 +27,9 @@ export const Appbar = ({ userName, setAuthenticated }) => {
           className="rounded-full h-12 w-12 bg-slate-200 flex justify-center items-center mt-1 mr-2 cursor-pointer"
           onClick={() => setDropdownVisible(!dropdownVisible)}
         >
-          <div className="text-xl">{userName ? userName[0] : "U"}</div>
+          <div className="text-xl">
+            {userName ? String(userName[0]).toUpperCase() : "U"}
+          </div>
         </div>
         {dropdownVisible && (
           <div className="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg">

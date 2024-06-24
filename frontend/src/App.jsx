@@ -10,12 +10,15 @@ import { Signin } from "./pages/Signin";
 import Dashboard from "./pages/Dashboard";
 import { SendMoney } from "./components/SendMoney";
 import EditProfile from "./pages/EditProfile";
+import Home from "./pages/Home";
 import axios from "axios";
 
 const App = () => {
   const [userName, setUserName] = useState("");
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
+
+  const REACT_APP_URI = import.meta.env.VITE_REACT_APP_URI;
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -26,14 +29,11 @@ const App = () => {
           return;
         }
 
-        const response = await axios.get(
-          "http://localhost:3002/api/v1/user/me",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await axios.get(`${REACT_APP_URI}/api/v1/user/me`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         if (response.data.authenticated) {
           setUserName(
@@ -58,6 +58,7 @@ const App = () => {
   return (
     <Router>
       <Routes>
+        <Route path="/" element={<Home />} />
         <Route
           path="/signup"
           element={

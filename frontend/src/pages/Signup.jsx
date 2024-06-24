@@ -17,6 +17,8 @@ export const Signup = ({ setAuthenticated }) => {
 
   const navigate = useNavigate();
 
+  const REACT_APP_URI = import.meta.env.VITE_REACT_APP_URI;
+
   const handleSubmit = async () => {
     setLoading(true);
     const userData = {
@@ -28,7 +30,7 @@ export const Signup = ({ setAuthenticated }) => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3002/api/v1/user/signup",
+        `${REACT_APP_URI}/api/v1/user/signup`,
         userData
       );
       const token = response.data.token;
